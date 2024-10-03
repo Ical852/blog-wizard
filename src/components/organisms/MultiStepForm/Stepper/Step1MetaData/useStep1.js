@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 
 export const useStep1 = (props) => {
   const {
@@ -9,14 +9,14 @@ export const useStep1 = (props) => {
   const { title, author } = currentBlog;
   const [formData, setFormData] = useState({ title, author });
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     if (formData.title && formData.author) {
       setBlogMetadata(formData);
       nextStep();
     } else {
       alert('Fill all field first!.');
     }
-  };
+  }, [formData]);
 
   return {
     formData,

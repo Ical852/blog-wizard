@@ -1,28 +1,33 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 
 export const useStep3 = (props) => {
   const {
     currentBlog,
-    setBlogSummary,
+    setBlogContent,
     nextStep,
     prevStep,
   } = props;
   const { content } = currentBlog;
   const [formData, setFormData] = useState({ content });
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     if (formData.content) {
-      setBlogSummary(formData);
+      setBlogContent(formData);
       nextStep();
     } else {
       alert('Content can`t be empty!');
     }
-  };
+  }, [formData]);
+
+  const handlePrev = useCallback(() => {
+    setBlogContent(formData);
+    prevStep();
+  }, [formData]);
 
   return {
     formData,
     setFormData,
-    prevStep,
+    handlePrev,
     handleNext,
   }
 }

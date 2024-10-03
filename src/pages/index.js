@@ -1,8 +1,20 @@
+import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
+import { BlogCard } from '@/components';
 import Link from 'next/link';
 
 const HomePage = () => {
   const blogs = useSelector((state) => state.blog.blogs);
+
+  const _renderBlogs = useMemo(() => {
+    if (blogs?.length < 1) {
+      return <h5>No Blogs Yet</h5>
+    }
+
+    return blogs.map((blog, index) => (
+      <BlogCard blog={blog} index={index} />
+    ));
+  }, [blogs]);
 
   return (
     <div className="container mx-auto p-4">
@@ -12,19 +24,7 @@ const HomePage = () => {
           Create New Blog
         </p>
       </Link>
-      <ul>
-        {blogs.map((blog, index) => (
-          <li key={index} className="border-b py-2">
-            <Link href={`/blog/${index}`}>
-              <p className="text-xl font-semibold">{blog.title}</p>
-            </Link>
-            <p>{blog.summary}</p>
-            <p className="text-sm text-gray-600">
-              By {blog.author} in {blog.category}
-            </p>
-          </li>
-        ))}
-      </ul>
+      {_renderBlogs}
     </div>
   );
 };
