@@ -8,6 +8,7 @@ const initialState = {
     summary: '',
     category: '',
     content: '',
+    date: new Date(),
   },
 };
 

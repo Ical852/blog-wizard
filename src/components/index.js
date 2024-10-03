@@ -1,3 +1,3 @@
-import MultiStepForm from "./BlogForm/MultiStepForm";
+import MultiStepForm from "./MultiStepForm";
 
-export { MultiStepForm }
+export { MultiStepForm };
